@@ -1,8 +1,7 @@
-import React from 'react'
+import React from "react";
 
 export default function Transcribing(props) {
-
-  const{downloading} = props
+  const { downloading } = props;
 
   return (
     <div className="flex flex-col flex-1 items-center justify-center gap-10 md:gap-14 text-center pb-24 p-4">

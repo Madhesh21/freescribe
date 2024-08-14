@@ -1,8 +1,7 @@
-import React from 'react'
+import React from "react";
 
 export default function FileDisplay(props) {
-
-  const{file,audioStream,handleAudioReset} = props
+  const { file, audioStream, handleAudioReset } = props;
 
   return (
     <main className="flex flex-col flex-1 justify-center p-4 text-center gap-3 sm:gap-4 pb-20 w-72 sm:w-96 max-w-full mx-auto">
@@ -11,9 +10,7 @@ export default function FileDisplay(props) {
       </h1>
       <div className="flex flex-col text-left my-4">
         <h3 className="font-semibold">Name</h3>
-        <p className="truncate">
-          {file ? file?.name : "Custom audio"}
-        </p>
+        <p className="truncate">{file ? file?.name : "Custom audio"}</p>
       </div>
       <div className="flex items-center justify-between gap-4">
         <button
