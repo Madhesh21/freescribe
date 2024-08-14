@@ -41,11 +41,12 @@ function App() {
           console.log('loading')
           break;
         case 'RESULT':
-          setOutput(true)
+          setOutput(e.data.results)
+          console.log(e.data.results)
           break;
         case 'INFERENCE_DONE':
           setFinished(true)
-          console.log('inference_done')
+          console.log('done')
           break;
       }
     }
@@ -53,7 +54,7 @@ function App() {
     worker.current.addEventListener('message', onMessageReceived)
 
     return () => worker.current.removeEventListener('message', onMessageReceived)
-  },[])
+  })
 
   async function readAudioFrom(file) {
     const sampling_rate = 16000
@@ -69,12 +70,12 @@ function App() {
       return
     }
 
-    const audio = await readAudioFrom(file ? file : audioStream)
-    const model_name = `openai/whisper-tiny.en`
+    let audio = await readAudioFrom(file ? file : audioStream)
+    const model_name = 'openai/whisper-tiny.en'
     worker.current.postMessage({
       type: MessageTypes.INFERENCE_REQUEST,
       audio,
-      model_name,
+      model_name
     });
   }
 
@@ -83,11 +84,12 @@ function App() {
       <section className="min-h-screen flex flex-col">
         <Header />
         {output ? (
-          <Information />
+          <Information output={output} />
         ) : loading ? (
           <Transcribing />
         ) : isAudioAvailable ? (
           <FileDisplay
+            handleFormSubmission={handleFormSubmission}
             handleAudioReset={handleAudioReset}
             file={file}
             audioStream={audioStream}
